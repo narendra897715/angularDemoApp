@@ -1,0 +1,11 @@
+@import '../../styles.scss';
+.login-page {
+    background-color: $color1;
+    .main {
+        background-color: $color2;
+        padding: 2%;
+    }
+    .register-text {
+        padding-top: 1%;
+    }
+}
