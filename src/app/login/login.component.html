@@ -1,65 +1,28 @@
-<!-- <div fxFlex fxLayout="column">
+<div fxFlex fxLayout="column">
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="login-page">
         <div fxFlex="50" fxLayout="column" class="main">
 
 
             <h2>Login</h2>
-            <mat-form-field appearance="outline">
-                <mat-label>Enter EmailId</mat-label>
-                <input matInput placeholder="Placeholder">
-
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Enter Password</mat-label>
-                <input matInput placeholder="Placeholder" type="password">
-
-            </mat-form-field>
-            <button mat-raised-button color="primary">Login</button>
-            <span class="register-text">Don't have an account yet?</span>
-            <button mat-raised-button color="primary">Register here</button>
-
-            <div>{{getFullName()}}</div>
-            <span [innerHtml] = 'firstName'></span>
-            <input id="inputId" value="tom">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxFlex="50" fxLayout="column">
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter EmailId</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName="emailid" (blur)="loadValidationsMessages()">
+                    <mat-error *ngIf="formErrors.emailid">{{formErrors.emailid}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Password</mat-label>
+                    <input matInput placeholder="Placeholder" type="password" formControlName="password" (blur)="loadValidationsMessages()">
+                    <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
+                </mat-form-field>
+                <span *ngIf="!verifyData.status">{{verifyData.message}}</span>
+                <button mat-raised-button color="primary" type="submit">Login</button>
+                <span class="register-text">Don't have an account yet?</span>
+                <button mat-raised-button color="primary" routerLink="/register">Register here</button>
+            </form>
         </div>
     </div>
 
-</div> -->
-<app-employee-count [all]="getTotalEmployeeCount()"
-                    [male]="getTotalMaleEMployeeCount()"
-                    [female]="getTotalFeMaleEMployeeCount()"
-                    (countEmployeeEventEmitter)="changedInChildComponent($event)"></app-employee-count>
-<table>
-        <thead>
-            <tr>
-                <th>s.no</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Annual Salary</th>
-                <th>Date of Birth</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor='let employee of employees; let i = index; trackBy: trackByFunction'>
-            <tr *ngIf="selectedValueFromChild == 'All' || selectedValueFromChild === employee.gender">
-
-                <td>{{i}}</td>
-                <td>{{employee.code}}</td>
-                <td>{{employee.name | employeeTitle123:employee.gender}}</td>
-                <td>{{employee.gender }}</td>
-                <td>{{employee.annualSalary | currency : 'USD': true}}</td>
-                <td>{{employee.dateOfBirth | formatDate}}</td>
-            </tr>
-        </ng-container>
-            <tr *ngIf="!employees || employees.length==0">
-                <td colspan="5">
-                    No employees to display
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br />
-    <button (click)='getEmployees()'>Refresh Employees</button>
+</div>
 
 <!-- <git change commit check></git> -->

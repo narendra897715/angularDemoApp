@@ -1,62 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-
+import {IEmployee} from './login.interface';
+import {EmployeeService} from '../bussinesslogic.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   host : {'class': 'viewport'}
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit  {
   
-  firstName : string = "Narendra";
-  lastName : string = "vemula" ;
-  employees : any[];
+ 
+  employees : IEmployee[];
+  loginForm : FormGroup;
   selectedValueFromChild : string = "All";
-  constructor() { }
+  formErrors = {
+    emailid : "",
+    password: ""
+  }
+  validationMessages = {
+    emailid : {
+      required : "EmailId is required"
+    },
+    password : {
+      required : "password is required"
+    }
+  }
+  verifyData = {
+    message : "",
+    status : false
+  }
+  constructor(public empSerive: EmployeeService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.employees = [
-      {
-          code: 'emp101', name: 'Tom', gender: 'Male',
-          annualSalary: 5500, dateOfBirth: 583180200000
-      },
-      {
-          code: 'emp102', name: 'Alex', gender: 'Male',
-          annualSalary: 5700.95, dateOfBirth: 583180200000
-      },
-      {
-          code: 'emp103', name: 'Mike', gender: 'Male',
-          annualSalary: 5900, dateOfBirth: 583180200000
-      },
-      {
-          code: 'emp104', name: 'Mary', gender: 'Female',
-          annualSalary: 6500.826, dateOfBirth: 583180200000
-      },
-  ];
+       this.loginForm = this.fb.group({
+         emailid : ['',Validators.required],
+         password : ['', Validators.required]
+       })
+      this.loginForm.valueChanges.subscribe((data)=>{
+        this.loadValidationsMessages(this.loginForm);
+      })
   }
 
- getTotalEmployeeCount() : number {
-    return this.employees.length;
- }
+   loadValidationsMessages(group : FormGroup = this.loginForm) {
+     Object.keys(group.value).forEach((key : string)=> {
+      const abstractControl = group.get(key);
+      if(abstractControl && abstractControl.invalid && abstractControl.touched) {
+        const message = this.validationMessages[key];
+        for(const error in abstractControl.errors){
+          this.formErrors[key] = message[error];
+          console.log(this.formErrors);
+        }
+      }
+     })
+       }
+  
+       onLogin():void {
+         this.empSerive.registerUser('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
+             this.verifyData.message = data.message;
+             this.verifyData.status = data.status;
+         })
+       }
 
- getTotalMaleEMployeeCount() : number {
-   return this.employees.filter(e => e.gender === 'Male').length;
- }
 
- getTotalFeMaleEMployeeCount() : number {
-  return this.employees.filter(e => e.gender === 'Female').length;
-}
 
-  getFullName() {
-    return this.firstName + '' + this.lastName;
-    }
-
-  trackByFunction(index: number, employee) : string {
-    return employee.code;
-  }
-
-  changedInChildComponent(value: string) : void {
-        this.selectedValueFromChild = value;
-  }
 
 }

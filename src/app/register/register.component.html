@@ -1,0 +1,36 @@
+<div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="registerForm">
+        <div fxLayout="column" >
+
+
+            <h2>Register</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmitForm()" fxFlex="50" fxLayout="column">
+                <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="Placeholder" (blur)="logValidationMessages(registerForm)">
+                    <mat-error *ngIf="formErrors.firstName">{{formErrors.firstName}}</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Placeholder" (blur)="logValidationMessages(registerForm)">
+                    <mat-error *ngIf="formErrors.lastName">{{formErrors.lastName}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter EmailId</mat-label>
+                    <input matInput formControlName="emailId" placeholder="Placeholder" (blur)="logValidationMessages(registerForm)">
+                    <mat-error *ngIf="formErrors.emailId">{{formErrors.emailId}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Password</mat-label>
+                    <input matInput formControlName="password" placeholder="Placeholder" type="password" (blur)="logValidationMessages(registerForm)">
+                    <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit">Register</button>
+    
+            </form>
+          
+        </div>
+    </div>
+
+</div>

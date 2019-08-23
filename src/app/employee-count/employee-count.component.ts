@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-employee-count',
@@ -16,6 +16,9 @@ export class EmployeeCountComponent implements OnInit {
     @Input()
     female: number;
 
+    @Input()
+    changeName : string;
+
     @Output()
     countEmployeeEventEmitter : EventEmitter<string> = new EventEmitter<string>();
 
@@ -24,6 +27,15 @@ export class EmployeeCountComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  ngOnChanges(changeValue: SimpleChanges) {
+    for(let propertyName in changeValue) {
+      let change = changeValue[propertyName];
+      let current = JSON.stringify(change.currentValue);
+      let previous = JSON.stringify(change.previousValue);
+      console.log(propertyName + ': currentValue =' + current + ': previousValue =' + previous);
+    }
   }
 
   radioButtonChanged() {
