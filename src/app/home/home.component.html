@@ -1,0 +1,11 @@
+
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Favorite food" [(ngModel)]="message">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!message">Send</button>
+  <button mat-raised-button color="primary" (click)="sendlocation()">Send location</button>
+
+  <div *ngFor="let message of messages">
+    {{message}}
+</div>

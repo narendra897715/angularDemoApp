@@ -13,6 +13,7 @@ import { EmployeeCountComponent } from './employee-count/employee-count.componen
 import {HttpClientModule} from '@angular/common/http';
 import {EmployeeService} from './bussinesslogic.service';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { RegisterComponent } from './register/register.component';
     employeeTitle,
     formatDate,
     EmployeeCountComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

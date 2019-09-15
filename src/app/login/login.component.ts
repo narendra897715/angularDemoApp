@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IEmployee} from './login.interface';
 import {EmployeeService} from '../bussinesslogic.service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit  {
     message : "",
     status : false
   }
-  constructor(public empSerive: EmployeeService, private fb: FormBuilder) { }
+  constructor(public empSerive: EmployeeService, private fb: FormBuilder, private router : Router) { }
 
   ngOnInit() {
        this.loginForm = this.fb.group({
@@ -59,6 +60,9 @@ export class LoginComponent implements OnInit  {
          this.empSerive.registerUser('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
              this.verifyData.message = data.message;
              this.verifyData.status = data.status;
+             if(data.status) {
+               this.router.navigate(['home']);
+             }
          })
        }
 
