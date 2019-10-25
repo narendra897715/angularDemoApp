@@ -30,10 +30,14 @@ export class HomeComponent implements OnInit {
       this.empService.getMessages().subscribe((message)=>{
         this.messages.push(message);
       });
-      this.empService.receiveLocation().subscribe((location)=>{
-        console.log(location);
-      })
+      // this.empService.receiveLocation().subscribe((location)=>{
+      //   console.log(location);
+      // })
       this.getFriendsList();
+    } else if(localStorage.getItem('userId')) {
+     this.getLoggedInUserDetails();
+
+      
     } else {
       this.router.navigate(['login']);
     }
@@ -44,12 +48,17 @@ export class HomeComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl("http://localhost:3000/" + url);
   }
 
-  // getLoggedInUserDetails() {
-  //   this.empService.getDetails('/users/getUserDetails', {loginId : localStorage.getItem('userId')}).subscribe((data)=>{
-  //     this.empService.userData = data.userData;
-  //     this.getFriendsList();
-  // })
-  // };
+  getLoggedInUserDetails() {
+    this.empService.getDetails('/users/getUserDetails', {loginId : localStorage.getItem('userId')}).subscribe((data)=>{
+      this.empService.userData = data;
+      this.empService.establishSocketConnection();
+    
+      this.empService.getMessages().subscribe((message)=>{
+        this.messages.push(message);
+      });
+      this.getFriendsList();
+  })
+  };
 
   getFriendsList() {
     this.empService.getDetails('/users/getFriendslist', {loginId : this.empService.userData.id}).subscribe((friendsList)=>{
