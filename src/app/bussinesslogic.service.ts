@@ -4,12 +4,14 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import * as io from 'socket.io-client';
+import {IuserData} from './message.inteface';
 @Injectable()
 export class EmployeeService {
    
    
     public socket;
     public url = "http://localhost:3000";
+    public userData : IuserData = {id : 0, firstName : "", lastName: "" };
 
     constructor(private _http: HttpClient) {
         
@@ -25,6 +27,10 @@ export class EmployeeService {
      sendMessageToServer(message) {
          this.socket.emit('sendMessage', message);
          
+     };
+
+     getLoggedInUserDetails = function() {
+         return this.userData;
      };
 
      getMessages() {
@@ -51,7 +57,7 @@ export class EmployeeService {
         return this._http.get<IEmployee[]>('http://localhost:3000/getEmployees');
     }
 
-    registerUser(serviceName : string, userData): Observable<any> {
+    getDetails(serviceName : string, userData): Observable<any> {
         return this._http.post(this.url + serviceName, userData).pipe(
             map((response: Response)=> {
                 return response;
@@ -60,4 +66,18 @@ export class EmployeeService {
             })
         )
     }
+
+    getMethod(serviceName : string, userData): Observable<any> {
+        return this._http.get(this.url + serviceName, {params: userData}).pipe(
+            map((response: Response)=> {
+                return response;
+            }, (error : Response) => {
+                console.log(error);
+            })
+        )
+    }
+
+    // getDetails(serviceName : string): Observable<any> {
+    //     return this._http.post(this.url + serviceName, this.userData.id).
+    // }
 }

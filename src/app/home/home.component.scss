@@ -1,0 +1,34 @@
+.profile-picture {
+    border-radius: 50%;
+    max-height : 40px;
+}
+.send {
+    margin-left: 10px;
+}
+.contact {
+    border-bottom: 1px solid grey;
+    padding:10px;
+}
+
+.contact-name {
+    margin-left:10px;
+    font-weight:600;
+}
+.sentByMeMessage {
+    background-color: lightblue;
+    padding: 3px;
+    border-radius: 10px;
+};
+.receivedMessage {
+    background-color: greenyellow;
+    padding: 3px;
+    border-radius: 10px;
+}
+.sentByMePosition {
+    text-align: right;
+    margin-top: 5px;
+};
+.receivedPosition {
+    text-align: left;
+    margin-top: 5px;
+};

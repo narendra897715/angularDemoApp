@@ -4,8 +4,12 @@
     .main {
         background-color: $color2;
         padding: 2%;
+        max-height:500px;
     }
     .register-text {
         padding-top: 1%;
+    }
+    .register-button {
+        margin-left:5px;
     }
 }

@@ -57,10 +57,13 @@ export class LoginComponent implements OnInit  {
        }
   
        onLogin():void {
-         this.empSerive.registerUser('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
+         this.empSerive.getDetails('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
              this.verifyData.message = data.message;
              this.verifyData.status = data.status;
              if(data.status) {
+               localStorage.clear();
+               localStorage.setItem('userId', data.userData.id);
+               this.empSerive.userData = data.userData;
                this.router.navigate(['home']);
              }
          })

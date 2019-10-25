@@ -1,11 +1,34 @@
+<div fxFlex fxLayout="row">
+  
+     <div fxFlex="20" style="background-color: lightgrey;"> 
+      <div *ngFor="let friend of friendsList">
+        <div class="contact">
+         <img [src]= "sanitize(friend.imagePath)" alt="friend.name" class="profile-picture">
+         <span class="contact-name">{{friend.firstName}}</span>
+        </div>
+      </div>
+    </div>
+     <div fxFlex fxLayout="column" style="background-color: white;padding:10px">
+     <div fxFlex="95">
+        <div *ngFor="let message of messages">
+            <div [ngClass]="message.sentById === empService.userData.id ? 'sentByMePosition' : 'receivedPosition'">
+                <span [ngClass]="message.sentById === empService.userData.id ? 'sentByMeMessage' : 'receivedMessage'">{{message.message}}</span>
+            </div>
+          
+        </div>
+     </div>
+     <div fxFlex fxLayout="row">
+       <form name="messageForm" (submit)="sendMessage()" fxFlex>  
+               <div class="form-group" fxFlex="90">
+          <input class="form-control" type="text" name="message" placeholder="enter message" [(ngModel)]="messageText">
+        </div>
+        <div fxFlex class="send">
+            <button class="btn btn-primary" (click)="sendMessage()" type="submit" [disabled]="!messageText">send</button>
+            <!-- <button mat-raised-button color="primary" (click)="sendlocation()">Send location</button> -->
+        </div>
+      </form>
 
-<mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" [(ngModel)]="message">
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!message">Send</button>
-  <button mat-raised-button color="primary" (click)="sendlocation()">Send location</button>
-
-  <div *ngFor="let message of messages">
-    {{message}}
+     </div>
+    </div>
+  
 </div>

@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitForm() : void {
-    this.busService.registerUser('/addUsers', this.registerForm.value).subscribe((data)=> {
+    this.busService.getDetails('/addUsers', this.registerForm.value).subscribe((data)=> {
       this._snackBar.open("Registered Successfully", "", {
         duration: 2000,
       });

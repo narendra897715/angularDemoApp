@@ -1,24 +1,28 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="login-page">
-        <div fxFlex="50" fxLayout="column" class="main">
+        <div fxLayout="column" class="main">
 
 
             <h2>Login</h2>
-            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxFlex="50" fxLayout="column">
-                <mat-form-field appearance="outline">
-                    <mat-label>Enter EmailId</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName="emailid" (blur)="loadValidationsMessages()">
-                    <mat-error *ngIf="formErrors.emailid">{{formErrors.emailid}}</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Enter Password</mat-label>
-                    <input matInput placeholder="Placeholder" type="password" formControlName="password" (blur)="loadValidationsMessages()">
-                    <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
-                </mat-form-field>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxLayout="column">
+                <div class="form-group">
+                   
+                    <input type="email" class="form-control" id="exampleInputEmail1" formControlName="emailid" (blur)="loadValidationsMessages()" aria-describedby="emailHelp" placeholder="Enter email">
+                    <span  *ngIf="formErrors.emailid">{{formErrors.emailid}}</span>
+                </div>
+                <div class="form-group">
+                       
+                        <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" (blur)="loadValidationsMessages()"  placeholder="Enter password">
+                        <span  *ngIf="formErrors.password">{{formErrors.password}}</span>
+                    </div>
                 <span *ngIf="!verifyData.status">{{verifyData.message}}</span>
-                <button mat-raised-button color="primary" type="submit">Login</button>
-                <span class="register-text">Don't have an account yet?</span>
-                <button mat-raised-button color="primary" routerLink="/register">Register here</button>
+                <div>
+                        <button class="btn btn-primary col-md-4" type="submit">Login</button>
+                        <button class="btn btn-primary col-md-6 offset-md-2" routerLink="/register">Register</button>
+                </div>
+               
+               
+               
             </form>
         </div>
     </div>
