@@ -11,7 +11,7 @@ export class EmployeeService {
    
     public socket;
     public url = "http://localhost:3000";
-    public userData : IuserData = {id : 0, firstName : "", lastName: "" };
+    public userData : IuserData = {id : 0, firstName : "", lastName: "", emailId: "" };
 
     constructor(private _http: HttpClient) {
         
@@ -19,9 +19,10 @@ export class EmployeeService {
 
      establishSocketConnection() {
         this.socket = io(this.url);
-        this.socket.on('welcome',()=>{
-            console.log('message from serve');
-        });
+        // this.socket.on('welcome',()=>{
+        //     console.log('message from serve');
+        // });
+        this.socket.emit('join', this.userData);
      };
 
      sendMessageToServer(message) {
@@ -36,6 +37,7 @@ export class EmployeeService {
      getMessages() {
         return Observable.create((observer) => {
             this.socket.on('newMessage', (message) => {
+                console.log(message);
                 observer.next(message);
             });
         });
@@ -57,7 +59,7 @@ export class EmployeeService {
         return this._http.get<IEmployee[]>('http://localhost:3000/getEmployees');
     }
 
-    getDetails(serviceName : string, userData): Observable<any> {
+    postMethod(serviceName : string, userData): Observable<any> {
         return this._http.post(this.url + serviceName, userData).pipe(
             map((response: Response)=> {
                 return response;

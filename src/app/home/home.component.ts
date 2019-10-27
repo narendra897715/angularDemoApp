@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  message : Imessage = {message : '', sentById : 0};
+  message : Imessage = {message : '', sentById : 0, sendTo: ''};
   messageText : string;
   messages : Imessage[] = [];
   friendsList : IfriendsList[] = [];
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   getLoggedInUserDetails() {
-    this.empService.getDetails('/users/getUserDetails', {loginId : localStorage.getItem('userId')}).subscribe((data)=>{
+    this.empService.getMethod('/users/getUserDetails', {loginId : localStorage.getItem('userId')}).subscribe((data)=>{
       this.empService.userData = data;
       this.empService.establishSocketConnection();
     
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   };
 
   getFriendsList() {
-    this.empService.getDetails('/users/getFriendslist', {loginId : this.empService.userData.id}).subscribe((friendsList)=>{
+    this.empService.getMethod('/users/getFriendslist', {loginId : this.empService.userData.id}).subscribe((friendsList)=>{
         this.friendsList = friendsList;
     })
   }
@@ -69,9 +69,14 @@ export class HomeComponent implements OnInit {
   sendMessage() {
     this.message.message = this.messageText;
     this.message.sentById = this.empService.userData.id;
+    this.message.sendTo = 'vamshi@gmail.com';
     this.empService.sendMessageToServer(this.message);
     this.messageText = "";
   }
+
+  // saveSelectedFriendName() {
+
+  // }
 
   sendlocation() {
     navigator.geolocation.getCurrentPosition((position)=>{

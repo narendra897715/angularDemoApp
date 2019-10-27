@@ -2,7 +2,7 @@
   
      <div fxFlex="20" style="background-color: lightgrey;"> 
       <div *ngFor="let friend of friendsList">
-        <div class="contact">
+        <div class="contact" (click)="saveSelectedFriendName(friend)">
          <img [src]= "sanitize(friend.imagePath)" alt="friend.name" class="profile-picture">
          <span class="contact-name">{{friend.firstName}}</span>
         </div>

@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit  {
        }
   
        onLogin():void {
-         this.empSerive.getDetails('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
+         this.empSerive.postMethod('/login/verifyUser', this.loginForm.value).subscribe((data)=>{
              this.verifyData.message = data.message;
              this.verifyData.status = data.status;
              if(data.status) {
