@@ -1,8 +1,8 @@
 <div fxFlex fxLayout="row">
   
-     <div fxFlex="20" style="background-color: lightgrey;"> 
+     <div fxFlex="20" style="background-color: lightgrey;padding-right:5px;"> 
       <div *ngFor="let friend of friendsList">
-        <div class="contact" (click)="saveSelectedFriendName(friend)">
+        <div  [ngClass]="friend.emailId === selectedFriendDetails.emailId ? 'selectedFriend' : 'contact'" (click)="saveSelectedFriendName(friend)">
          <img [src]= "sanitize(friend.imagePath)" alt="friend.name" class="profile-picture">
          <span class="contact-name">{{friend.firstName}}</span>
         </div>
@@ -10,12 +10,20 @@
     </div>
      <div fxFlex fxLayout="column" style="background-color: white;padding:10px">
      <div fxFlex="95">
-        <div *ngFor="let message of messages">
+       <div fxFlex *ngIf="!showWelcomePage">  
+               <div *ngFor="let message of messages">
             <div [ngClass]="message.sentById === empService.userData.id ? 'sentByMePosition' : 'receivedPosition'">
                 <span [ngClass]="message.sentById === empService.userData.id ? 'sentByMeMessage' : 'receivedMessage'">{{message.message}}</span>
             </div>
           
         </div>
+        </div>
+      <div fxFlex *ngIf="showWelcomePage" fxLayoutAlign="center center">
+
+   
+                <span>Welcome To Chat App</span>
+     
+     </div>
      </div>
      <div fxFlex fxLayout="row">
        <form name="messageForm" (submit)="sendMessage()" fxFlex>  

@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   messageText : string;
   messages : Imessage[] = [];
   friendsList : IfriendsList[] = [];
+  selectedFriendDetails : IfriendsList = {emailId: "", name :"", imagePath :""};
+  showWelcomePage : boolean = true;
   // friends = [{imagePath: "nandu.png", name : "Nandu"},{imagePath: 'http://localhost:3000/vamshi.gif', name : "Vamshi"}];
   location = {
     latitude : 0,
@@ -69,14 +71,15 @@ export class HomeComponent implements OnInit {
   sendMessage() {
     this.message.message = this.messageText;
     this.message.sentById = this.empService.userData.id;
-    this.message.sendTo = 'vamshi@gmail.com';
+    this.message.sendTo = this.selectedFriendDetails.emailId;
     this.empService.sendMessageToServer(this.message);
     this.messageText = "";
   }
 
-  // saveSelectedFriendName() {
-
-  // }
+  saveSelectedFriendName(data) {
+    this.showWelcomePage = false;
+    this.selectedFriendDetails = data;
+  }
 
   sendlocation() {
     navigator.geolocation.getCurrentPosition((position)=>{

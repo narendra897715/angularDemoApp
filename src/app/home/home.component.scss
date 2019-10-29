@@ -8,6 +8,7 @@
 .contact {
     border-bottom: 1px solid grey;
     padding:10px;
+    background-color: transparent;
 }
 
 .contact-name {
@@ -32,3 +33,8 @@
     text-align: left;
     margin-top: 5px;
 };
+.selectedFriend {
+    border-bottom: 1px solid grey;
+    padding:10px;
+   background-color: white;
+}

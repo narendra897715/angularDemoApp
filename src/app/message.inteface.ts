@@ -14,4 +14,5 @@ export interface IuserData {
 export interface IfriendsList {
     imagePath : string;
     name : string;
+    emailId : string;
 }
