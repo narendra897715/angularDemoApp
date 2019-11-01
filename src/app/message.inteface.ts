@@ -1,7 +1,7 @@
 export interface Imessage {
     message : string;
     sentById : number;
-    sendTo : string;
+    sendToId : number;
 }
 
 export interface IuserData {
@@ -12,6 +12,7 @@ export interface IuserData {
 }
 
 export interface IfriendsList {
+    id : number;
     imagePath : string;
     name : string;
     emailId : string;

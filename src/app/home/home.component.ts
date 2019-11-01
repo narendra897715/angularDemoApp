@@ -11,11 +11,12 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  message : Imessage = {message : '', sentById : 0, sendTo: ''};
+  message : Imessage = {message : '', sentById : 0, sendToId: 0};
   messageText : string;
-  messages : Imessage[] = [];
+  existingMessages : Imessage[] = [];
+  newMessages : Imessage[] = [];
   friendsList : IfriendsList[] = [];
-  selectedFriendDetails : IfriendsList = {emailId: "", name :"", imagePath :""};
+  selectedFriendDetails : IfriendsList = {emailId: "", name :"", imagePath :"", id: 0};
   showWelcomePage : boolean = true;
   // friends = [{imagePath: "nandu.png", name : "Nandu"},{imagePath: 'http://localhost:3000/vamshi.gif', name : "Vamshi"}];
   location = {
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
       this.empService.establishSocketConnection();
     
       this.empService.getMessages().subscribe((message)=>{
-        this.messages.push(message);
+        this.existingMessages.push(message);
+        this.newMessages.push(message);
       });
       // this.empService.receiveLocation().subscribe((location)=>{
       //   console.log(location);
@@ -56,7 +58,8 @@ export class HomeComponent implements OnInit {
       this.empService.establishSocketConnection();
     
       this.empService.getMessages().subscribe((message)=>{
-        this.messages.push(message);
+        this.existingMessages.push(message);
+        this.newMessages.push(message);
       });
       this.getFriendsList();
   })
@@ -71,14 +74,21 @@ export class HomeComponent implements OnInit {
   sendMessage() {
     this.message.message = this.messageText;
     this.message.sentById = this.empService.userData.id;
-    this.message.sendTo = this.selectedFriendDetails.emailId;
+    this.message.sendToId = this.selectedFriendDetails.id;
     this.empService.sendMessageToServer(this.message);
     this.messageText = "";
   }
 
   saveSelectedFriendName(data) {
+    if(this.newMessages.length !== 0) {
+      this.empService.postMethod('/users/saveMessages', this.newMessages).subscribe((data)=>{
+       
+        })
+    }
     this.showWelcomePage = false;
     this.selectedFriendDetails = data;
+    
+    
   }
 
   sendlocation() {

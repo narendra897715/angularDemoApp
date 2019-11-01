@@ -11,14 +11,14 @@
      <div fxFlex fxLayout="column" style="background-color: white;padding:10px">
      <div fxFlex="95">
        <div fxFlex *ngIf="!showWelcomePage">  
-               <div *ngFor="let message of messages">
+               <div *ngFor="let message of existingMessages">
             <div [ngClass]="message.sentById === empService.userData.id ? 'sentByMePosition' : 'receivedPosition'">
                 <span [ngClass]="message.sentById === empService.userData.id ? 'sentByMeMessage' : 'receivedMessage'">{{message.message}}</span>
             </div>
           
         </div>
         </div>
-      <div fxFlex *ngIf="showWelcomePage" fxLayoutAlign="center center">
+      <div fxFlex *ngIf="showWelcomePage" fxLayoutAlign="center center" class="welcomePage">
 
    
                 <span>Welcome To Chat App</span>
