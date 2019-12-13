@@ -1,42 +1,80 @@
 .profile-picture {
     border-radius: 50%;
     max-height : 40px;
+    background-color: black;
+    width:40px;
+}
+.header-profile-pic {
+    border-radius: 50%;
+    max-height : 100%;
+    background-color: black;
+    width:40px;
 }
 .send {
     margin-left: 10px;
 }
 .contact {
-    border-bottom: 1px solid grey;
+    //border-bottom: 1px solid grey;
     padding:10px;
     background-color: transparent;
 }
+
+.menu {
+    background-color: white;
+    text-align: left;
+    border-radius: .25rem;
+    border: 1px solid rgba(0,0,0,.15);
+    background-clip: padding-box;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+};
+
+
 
 .contact-name {
     margin-left:10px;
     font-weight:600;
 }
-.sentByMeMessage {
-    background-color: lightblue;
-    padding: 3px;
-    border-radius: 10px;
+.sentByMeMessage::after {
+    border:10px solid;
+    border-color:rgb(82, 217, 89) transparent transparent transparent;
+    content:'';
+    position:absolute;
+    right:5px;
 };
-.receivedMessage {
-    background-color: greenyellow;
+.sentByMeMessage {
+    background-color: rgb(82, 217, 89);
     padding: 3px;
     border-radius: 10px;
+    margin-right:15px;
+};
+.receivedMessage::before {
+    border:10px solid;
+    border-color:#fff transparent transparent transparent;
+    content:'';
+    position:absolute;
+    left:5px;
+}
+.receivedMessage {
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 10px;
+    margin-left:15px;
 }
 .sentByMePosition {
     text-align: right;
     margin-top: 5px;
+    position: relative;
 };
 .receivedPosition {
     text-align: left;
     margin-top: 5px;
+    position: relative;
 };
 .selectedFriend {
-    border-bottom: 1px solid grey;
+   // border-bottom: 1px solid grey;
     padding:10px;
-   background-color: white;
+   background-color: rgb(240, 245, 240);
 }
 .welcomePage {
     background: rgb(34,193,195);

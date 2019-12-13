@@ -11,7 +11,7 @@ export class EmployeeService {
    
     public socket;
     public url = "http://localhost:3000";
-    public userData : IuserData = {id : 0, firstName : "", lastName: "", emailId: "" };
+    public userData : IuserData = {id : 0, firstName : "", lastName: "", emailId: "", imagePath: "" };
 
     constructor(private _http: HttpClient) {
         
@@ -26,13 +26,16 @@ export class EmployeeService {
      };
 
      sendMessageToServer(message) {
-         this.socket.emit('sendMessage', message);
-         
+         this.socket.emit('sendMessage', message);         
      };
 
      getLoggedInUserDetails = function() {
          return this.userData;
      };
+
+     addFriendsToSocketList(data) {
+        this.socket.emit('join', data);
+     }
 
      getMessages() {
         return Observable.create((observer) => {
@@ -42,6 +45,10 @@ export class EmployeeService {
             });
         });
      }
+
+    //  newMessagesSaved() {
+    //     this.socket.emit('sendMessage', message);
+    //  }
 
      receiveLocation() {
         return Observable.create((observer) => {

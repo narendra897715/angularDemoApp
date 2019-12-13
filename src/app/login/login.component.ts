@@ -61,8 +61,8 @@ export class LoginComponent implements OnInit  {
              this.verifyData.message = data.message;
              this.verifyData.status = data.status;
              if(data.status) {
-               localStorage.clear();
-               localStorage.setItem('userId', data.userData.id);
+              sessionStorage.clear();
+              sessionStorage.setItem('userId', data.userData.id);
                this.empSerive.userData = data.userData;
                this.router.navigate(['home']);
              }

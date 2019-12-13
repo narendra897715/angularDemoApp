@@ -1,42 +1,70 @@
-<div fxFlex fxLayout="row">
-  
-     <div fxFlex="20" style="background-color: lightgrey;padding-right:5px;"> 
-      <div *ngFor="let friend of friendsList">
-        <div  [ngClass]="friend.emailId === selectedFriendDetails.emailId ? 'selectedFriend' : 'contact'" (click)="saveSelectedFriendName(friend)">
-         <img [src]= "sanitize(friend.imagePath)" alt="friend.name" class="profile-picture">
-         <span class="contact-name">{{friend.firstName}}</span>
+<div fxFlex fxLayout="column">
+  <div fxFlex="5" fxFlex.md="10" fxLayoutAlign="center center" fxLayout="row" style="background-color: rgb(82, 217, 89);padding:5px">
+      
+    <div fxFlex >
+        <button class="btn btn-primary">
+            Add friend
+          </button>
+          <!-- <img src="../../assets/add-image.png" alt="add" style="width:20px;height:100%"> -->
+    </div>
+    
+       <div fxFlex="10" style="position:relative;text-align:right" >
+          <img [src]="sanitize(empService.userData.imagePath)" (click)="showOrHideMenu()" class="header-profile-pic" alt="empService.userData.firstname">
+          <div class="menu" *ngIf="showmenu">
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+              <a class="dropdown-item">My Profile</a>
+           </div>
+       </div>
+          
+     
+       
+    
+          
+       
+    
+
+  </div>
+  <div fxFlex="95" fxFlex.md="90" fxLayout="row">
+
+      <div fxFlex="20" style="background-color: white;padding-right:5px;">
+        <div *ngFor="let friend of friendsList">
+          <div [ngClass]="friend.emailId === selectedFriendDetails.emailId ? 'selectedFriend' : 'contact'"
+            (click)="saveSelectedFriendName(friend)">
+            <img [src]="sanitize(friend.imagePath)" alt="friend.name" class="profile-picture">
+            <span class="contact-name">{{friend.firstName}}</span>
+          </div>
         </div>
       </div>
-    </div>
-     <div fxFlex fxLayout="column" style="background-color: white;padding:10px">
-     <div fxFlex="95">
-       <div fxFlex *ngIf="!showWelcomePage">  
-               <div *ngFor="let message of existingMessages">
-            <div [ngClass]="message.sentById === empService.userData.id ? 'sentByMePosition' : 'receivedPosition'">
-                <span [ngClass]="message.sentById === empService.userData.id ? 'sentByMeMessage' : 'receivedMessage'">{{message.message}}</span>
+      <div fxFlex fxLayout="column" style="background-color: rgb(225, 242, 245);padding:5px">
+        <div fxFlex="90" >
+          <div fxFlex *ngIf="!showWelcomePage" style="overflow:auto" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <div *ngFor="let message of existingMessages">
+              <div [ngClass]="message.sentById === empService.userData.id ? 'sentByMePosition' : 'receivedPosition'">
+                <span
+                  [ngClass]="message.sentById === empService.userData.id ? 'sentByMeMessage' : 'receivedMessage'">{{message.messageContent}}</span>
+              </div>
+    
             </div>
-          
+          </div>
+          <div fxFlex *ngIf="showWelcomePage" fxLayoutAlign="center center" class="welcomePage">
+    
+    
+            <span>Welcome To Chat App</span>
+    
+          </div>
         </div>
+        <div fxFlex fxLayout="row">
+          <form name="messageForm" (submit)="sendMessage()" fxFlex fxLayoutAlign="center center">
+            <div class="form-group" fxFlex="90" style="margin-bottom: 0px;">
+              <input class="form-control" type="text" name="message" placeholder="enter message" [(ngModel)]="messageText">
+            </div>
+            <div fxFlex class="send">
+              <button class="btn btn-primary" (click)="sendMessage()" type="submit" [disabled]="!messageText">send</button>
+            </div>
+          </form>
+    
         </div>
-      <div fxFlex *ngIf="showWelcomePage" fxLayoutAlign="center center" class="welcomePage">
-
-   
-                <span>Welcome To Chat App</span>
-     
-     </div>
-     </div>
-     <div fxFlex fxLayout="row">
-       <form name="messageForm" (submit)="sendMessage()" fxFlex>  
-               <div class="form-group" fxFlex="90">
-          <input class="form-control" type="text" name="message" placeholder="enter message" [(ngModel)]="messageText">
-        </div>
-        <div fxFlex class="send">
-            <button class="btn btn-primary" (click)="sendMessage()" type="submit" [disabled]="!messageText">send</button>
-            <!-- <button mat-raised-button color="primary" (click)="sendlocation()">Send location</button> -->
-        </div>
-      </form>
-
-     </div>
+      </div>
+    
     </div>
-  
 </div>

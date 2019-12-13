@@ -14,6 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {EmployeeService} from './bussinesslogic.service';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { ModalComponentComponent } from './home/modal-component/modal-component.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { HomeComponent } from './home/home.component';
     formatDate,
     EmployeeCountComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ModalComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,11 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
+  ],
+  entryComponents:[
+    ModalComponentComponent
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

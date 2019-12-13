@@ -1,5 +1,5 @@
 export interface Imessage {
-    message : string;
+    messageContent : string;
     sentById : number;
     sendToId : number;
 }
@@ -9,6 +9,7 @@ export interface IuserData {
     firstName : string;
     lastName : string;
     emailId : string;
+    imagePath : string;
 }
 
 export interface IfriendsList {
